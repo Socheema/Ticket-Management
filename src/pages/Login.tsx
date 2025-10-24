@@ -5,7 +5,7 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Card } from '../components/ui/card';
 import { useAuth } from '../contexts/AuthContext';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 import { DecorativeCircles } from '../components/DecorativeCircles';
 import { Ticket, Loader2 } from 'lucide-react';
 
@@ -44,9 +44,9 @@ export const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 relative overflow-hidden">
       <DecorativeCircles />
-      
-      <div className="w-full max-w-md px-4 relative z-10">
-        <div className="text-center mb-8">
+
+      <div className="w-full max-w-md px-4 relative z-10 ">
+        <div className="text-center mt-6">
           <Link to="/" className="inline-flex items-center gap-2 mb-6">
             <div className="w-12 h-12 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
               <Ticket className="w-7 h-7 text-white" />

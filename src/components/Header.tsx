@@ -1,6 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
 import { useAuth } from '../contexts/AuthContext';
+import { useTheme } from 'next-themes';
+import { Sun, Moon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,6 +22,12 @@ interface HeaderProps {
 export const Header = ({ variant = 'landing' }: HeaderProps) => {
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -46,6 +55,15 @@ export const Header = ({ variant = 'landing' }: HeaderProps) => {
           </Link>
 
           <nav className="flex items-center gap-4">
+            {mounted && (
+              <button
+                aria-label="Toggle theme"
+                onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+                className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              >
+                {resolvedTheme === 'dark' ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-gray-700" />}
+              </button>
+            )}
             {variant === 'landing' && !isAuthenticated && (
               <>
                 <Button variant="ghost" onClick={() => navigate('/login')}>

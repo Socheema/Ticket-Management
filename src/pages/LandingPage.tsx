@@ -10,7 +10,7 @@ import { CheckCircle2, Clock, BarChart3 } from 'lucide-react';
 
 export const LandingPage = () => {
   const navigate = useNavigate();
-  
+
   const features = [
     {
       title: 'Real-time Tracking',
@@ -39,14 +39,14 @@ export const LandingPage = () => {
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 overflow-hidden">
         <DecorativeCircles />
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 relative z-10">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-gray-900 mb-6">
+          <div className="text-center max-w-3xl mx-auto flex flex-col items-center gap-4">
+               <h1 className="text-gray-900 mb-6 text-[4rem] leading-tight font-semibold">
               Manage Your Tickets with Ease
             </h1>
-            <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-              A modern, intuitive ticket management system that helps teams track, organize, 
+            <p className="text-gray-600 mb-8 max-w-2xl mx-auto text-sm letter-spacing-wide ">
+              A modern, intuitive ticket management system that helps teams track, organize,
               and resolve support tickets efficiently. Streamline your workflow today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -67,7 +67,7 @@ export const LandingPage = () => {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-gray-900 mb-4">
+               <h2 className="text-gray-900 mb-4 text-[4rem] leading-tight font-semibold">
               Everything You Need
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">

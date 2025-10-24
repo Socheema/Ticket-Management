@@ -1,61 +1,87 @@
-**Add your own guidelines here**
-<!--
+# Project Guidelines — Ticket Management Web App
 
-System Guidelines
+This document captures coding, design and accessibility conventions for the project. Follow these rules to keep the
+codebase consistent, maintainable, and accessible.
 
-Use this file to provide the AI with rules and guidelines you want it to follow.
-This template outlines a few examples of things you can add. You can add your own sections and format it to suit your needs
+If you propose a change that conflicts with these rules, explain the reason in the PR and get an approval from a
+project maintainer.
 
-TIP: More context isn't always better. It can confuse the LLM. Try and add the most important rules you need
+## Table of contents
+- Purpose
+- Coding conventions
+- File and component structure
+- Styling / Tailwind usage
+- Design tokens and theming
+- Accessibility
+- Performance and animations
+- State and context
+- Testing and QA
+- Pull requests and commits
 
-# General guidelines
+## Purpose
 
-Any general rules you want the AI to follow.
-For example:
+These guidelines ensure predictable development and a consistent user experience across the app.
 
-* Only use absolute positioning when necessary. Opt for responsive and well structured layouts that use flexbox and grid by default
-* Refactor code as you go to keep code clean
-* Keep file sizes small and put helper functions and components in their own files.
+## Coding conventions
 
---------------
+- Use TypeScript for all new files. Keep types explicit for public components and context values.
+- Prefer small, single-responsibility components. If a component grows beyond ~200 LOC, split it.
+- Name React components using PascalCase. Name files matching the exported component (e.g. `Header.tsx`).
+- Keep helper functions in separate files under `src/utils` or a feature folder.
+- Avoid inline anonymous functions in render where they create a new reference each render (use `useCallback` when needed).
 
-# Design system guidelines
-Rules for how the AI should make generations look like your company's design system
+## File and component structure
 
-Additionally, if you select a design system to use in the prompt box, you can reference
-your design system's components, tokens, variables and components.
-For example:
+- Organize by feature: `src/pages`, `src/components`, `src/contexts`, `src/styles`, `src/components/ui` (shared primitives).
+- UI primitives (Button, Input, Card, etc.) live under `src/components/ui` and should be minimal wrappers over primitives + Tailwind classes.
+- Context providers live in `src/contexts` and should expose a typed hook (e.g. `useAuth`).
 
-* Use a base font-size of 14px
-* Date formats should always be in the format “Jun 10”
-* The bottom toolbar should only ever have a maximum of 4 items
-* Never use the floating action button with the bottom toolbar
-* Chips should always come in sets of 3 or more
-* Don't use a dropdown if there are 2 or fewer options
+## Styling / Tailwind usage
 
-You can also create sub sections and add more specific details
-For example:
+- We use Tailwind + design tokens (CSS variables). Prefer utility classes for layout and simple styling.
+- For reusable styles, create small utility components in `src/components/ui` rather than copying long class lists.
+- Use arbitrary values sparingly (e.g. `text-[4rem]`) only for exceptional headings — prefer token variables where possible.
+- Keep global rules in `src/styles/globals.css` and Tailwind output in `src/index.css`.
 
+## Design tokens and theming
 
-## Button
-The Button component is a fundamental interactive element in our design system, designed to trigger actions or navigate
-users through the application. It provides visual feedback and clear affordances to enhance user experience.
+- Colors, font sizes and spacing are defined as CSS variables in `src/index.css` (generated Tailwind). Prefer these tokens over hard-coded values.
+- The project supports light/dark themes via the `.dark` class on the root. Theme is controlled by the `next-themes` provider.
 
-### Usage
-Buttons should be used for important actions that users need to take, such as form submissions, confirming choices,
-or initiating processes. They communicate interactivity and should have clear, action-oriented labels.
+## Accessibility
 
-### Variants
-* Primary Button
-  * Purpose : Used for the main action in a section or page
-  * Visual Style : Bold, filled with the primary brand color
-  * Usage : One primary button per section to guide users toward the most important action
-* Secondary Button
-  * Purpose : Used for alternative or supporting actions
-  * Visual Style : Outlined with the primary color, transparent background
-  * Usage : Can appear alongside a primary button for less important actions
-* Tertiary Button
-  * Purpose : Used for the least important actions
-  * Visual Style : Text-only with no border, using primary color
-  * Usage : For actions that should be available but not emphasized
--->
+- All interactive elements must be reachable by keyboard and have visible focus styles.
+- Provide descriptive `aria-*` attributes where semantics are not obvious.
+- Images must have meaningful `alt` text; decorative images may use empty `alt=""`.
+- Maintain contrast ratios that meet WCAG AA for normal text (4.5:1) and large text (3:1).
+
+## Performance and animations
+
+- Prefer CSS transforms and opacity for animations to keep them GPU-accelerated.
+- Keep complex animations limited and provide a `prefers-reduced-motion` fallback.
+- Lazy-load large assets (images, charts) and use placeholders for better perceived performance.
+
+## State and context
+
+- Keep global state minimal. Use React Context for auth, tickets and theme. For complex local state prefer React Query / SWR or a lightweight state library.
+- Context providers should be simple and return stable references (`useCallback`/`useMemo` where appropriate).
+
+## Testing and QA
+
+- Add unit tests for critical logic (utils, data transforms) and a few integration tests for forms and flows.
+- Manual QA: verify keyboard navigation, form validation, and mobile/desktop layouts on Chrome/Edge/Firefox/Safari.
+
+## Pull requests and commits
+
+- Keep PRs focused and small. Each PR should have a clear description, link to any related issue and screen captures if UI changed.
+- Write meaningful commit messages (imperative tense): `feat(auth): add remember-me flag`.
+- Tag reviewers and explain any migration or build steps required.
+
+## Helpful tips
+
+- When updating design tokens, run a visual pass across major pages (Landing, Login, Dashboard).
+- If you need to add a third-party dependency, note why and prefer small, well-maintained packages.
+
+---
+
+If anything here needs clarification or you want to add project-specific rules, open a PR against this file.
