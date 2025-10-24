@@ -91,11 +91,4 @@ npm install --save-dev typescript @types/react @types/react-dom
 
 - If the dev server port is in use, Vite will try another port — check the terminal output for the URL.
 
-## License
 
-This project does not include a license file. Add a `LICENSE` file if you plan to publish or share the project.
-
----
-
-If you want, I can also add a CONTRIBUTING.md, CODE_OF_CONDUCT.md, and a lightweight deploy guide (Vercel/Netlify) — tell me which you prefer and I will add them.
-# Ticket-Management
